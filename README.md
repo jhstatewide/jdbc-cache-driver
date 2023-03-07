@@ -10,7 +10,7 @@ https://github.com/qwazr/jdbc-cache-driver***
 
 ## Overview
 
-Kotlin-JDBC-Driver-Cache is a tool designed to cache the result of SQL queries, specifically the ResultSet, either in memory or files. With this caching functionality, subsequent requests for the same query can be served directly from the cache without the need for repeated database queries, resulting in improved performance and reduced load on the database.
+Kotlin-JDBC-Driver-Cache is a tool designed to cache the result of SQL queries, specifically the ResultSet, either in memory or files. With this caching functionality, subsequent requests for the same query can be served directly from the cache without the need for repeated database queries, resulting in improved performance and reduced load on the database. It also supports limiting the size of the cache by max age, max size or both.
 
 This tool can also be used to mock ResultSets from a database, making it easier to test and develop database-driven applications. Additionally, Kotlin-JDBC-Driver-Cache is itself a JDBC driver that acts as a wrapper over any third-party JDBC driver.
 
@@ -21,7 +21,7 @@ By leveraging Kotlin-JDBC-Driver-Cache, developers can improve the performance a
 FAQ at: https://github.com/jhstatewide/kotlin-jdbc-cache-driver/wiki/FAQ
 
 ## Roadmap
-In addition to its existing features, Kotlin-JDBC-Driver-Cache is also constantly evolving and improving. One of the next steps in its development is to add more customization options, including the ability to set a Time-To-Live (TTL) value for cached data. This would allow developers to specify how long data should remain cached before being refreshed or invalidated, providing greater control over the caching behavior.
+In addition to its existing features, Kotlin-JDBC-Driver-Cache is also constantly evolving and improving. One of the next steps in its development is to add more customization options.
 
 Furthermore, Kotlin-JDBC-Driver-Cache is also exploring support for standard "JSR-107" caching, which is a widely-used caching standard in the Java ecosystem. By implementing this standard, Kotlin-JDBC-Driver-Cache could be seamlessly integrated with other JSR-compliant caching solutions, making it even easier for developers to adopt and use.
 
