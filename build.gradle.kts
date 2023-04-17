@@ -10,7 +10,9 @@ plugins {
     `java-library`
     `maven-publish`
     kotlin("jvm") version "1.8.10"
-    id("com.github.johnrengelman.shadow") version "8.0.0"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+    signing
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
 val githubUsername: String? by project
@@ -35,17 +37,38 @@ publishing {
             }
         }
     }
+
     publications {
-        register<MavenPublication>("gpr") {
+        create<MavenPublication>("mavenJava") {
             from(components["java"])
 
-            // include the shadow JAR with a "shadow" classifier
-            artifact(tasks["shadowJar"]) {
-                classifier = "shadow"
+            pom {
+                name.set("kotlin-jdbc-cache-driver")
+                description.set("A JDBC driver that caches results in memory or on disk and proxies another driver.")
+                url.set("https://github.com/jhstatewide/kotlin-jdbc-cache-driver")
+                licenses {
+                    license {
+                        name.set("Apache 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("jhstatewide")
+                        name.set("Joshua Harding")
+                        email.set("joshuaharding@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("https://github.com/jhstatewide/kotlin-jdbc-cache-driver.git")
+                    developerConnection.set("https://github.com/jhstatewide/kotlin-jdbc-cache-driver.git")
+                    url.set("https://github.com/jhstatewide/kotlin-jdbc-cache-driver")
+                }
             }
         }
     }
 }
+
 
 repositories {
     mavenLocal()
@@ -92,4 +115,17 @@ compileKotlin.kotlinOptions {
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
+}
+
+signing {
+    sign(publishing.publications)
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
 }
